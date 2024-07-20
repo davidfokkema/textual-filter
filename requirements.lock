@@ -9,3 +9,23 @@
 #   generate-hashes: false
 
 -e file:.
+linkify-it-py==2.0.3
+    # via markdown-it-py
+markdown-it-py==3.0.0
+    # via mdit-py-plugins
+    # via rich
+    # via textual
+mdit-py-plugins==0.4.1
+    # via markdown-it-py
+mdurl==0.1.2
+    # via markdown-it-py
+pygments==2.18.0
+    # via rich
+rich==13.7.1
+    # via textual
+textual==0.73.0
+    # via textual-filter
+typing-extensions==4.12.2
+    # via textual
+uc-micro-py==1.0.3
+    # via linkify-it-py

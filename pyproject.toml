@@ -5,7 +5,9 @@ description = "Add your description here"
 authors = [
     { name = "David Fokkema", email = "davidfokkema@icloud.com" }
 ]
-dependencies = []
+dependencies = [
+    "textual>=0.73.0",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
@@ -15,7 +17,10 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "textual-dev>=1.5.1",
+    "faker>=26.0.0",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
