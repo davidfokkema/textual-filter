@@ -21,6 +21,8 @@ mdurl==0.1.2
     # via markdown-it-py
 pygments==2.18.0
     # via rich
+rapidfuzz==3.9.4
+    # via textual-filter
 rich==13.7.1
     # via textual
 textual==0.73.0

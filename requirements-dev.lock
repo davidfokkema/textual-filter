@@ -42,6 +42,8 @@ pygments==2.18.0
     # via rich
 python-dateutil==2.9.0.post0
     # via faker
+rapidfuzz==3.9.4
+    # via textual-filter
 rich==13.7.1
     # via textual
 six==1.16.0
