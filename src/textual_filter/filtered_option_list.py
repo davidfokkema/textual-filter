@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING, Callable, Iterable
 
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+from rapidfuzz import fuzz
 from rapidfuzz.process import extract
 from textual.widgets import OptionList
 from textual.widgets._option_list import NewOptionListContent
@@ -26,12 +27,22 @@ class FilteredOptionList(OptionList):
         return super().add_options(items)
 
     def filter(
-        self, query: str, limit=None, score_cutoff=60.0, show_score=False
+        self,
+        query: str,
+        limit=100,
+        score_cutoff=60.0,
+        show_score=False,
+        scorer: Callable | None = None,
     ) -> None:
         if query:
             prompts = [option.prompt for option in self._all_options]
             matches = extract(
-                query, choices=prompts, limit=limit, score_cutoff=score_cutoff
+                query,
+                choices=prompts,
+                limit=limit,
+                score_cutoff=score_cutoff,
+                scorer=scorer or fuzz.token_set_ratio,
+                processor=lambda x: x.upper().replace("-", " ").replace("_", " "),
             )
             if show_score:
                 filtered_options = [
@@ -44,9 +55,8 @@ class FilteredOptionList(OptionList):
                 ]
 
             self.clear_options()
-
-            super().add_options(filtered_options)
+            if filtered_options:
+                super().add_options(filtered_options)
         else:
             self.clear_options()
             super().add_options(self._all_options)
-        self.refresh()
