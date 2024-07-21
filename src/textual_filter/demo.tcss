@@ -1,3 +1,9 @@
 FilteredOptionList {
     height: 1fr;
 }
+
+Label {
+    border: round $primary;
+    width: 100%;
+    height: 3;
+}
