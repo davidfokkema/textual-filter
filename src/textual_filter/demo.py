@@ -15,7 +15,7 @@ class DemoApp(App[None]):
 
     def on_mount(self) -> None:
         fake = Faker()
-        Faker.seed()
+        Faker.seed(0)
         self.query_one(FilteredOptionList).add_options(
             [fake.sentence() for _ in range(100)]
         )
