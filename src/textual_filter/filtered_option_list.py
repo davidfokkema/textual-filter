@@ -68,3 +68,4 @@ class FilteredOptionList(OptionList):
         else:
             self.clear_options()
             super().add_options(self._all_options)
+        self.scroll_home()
