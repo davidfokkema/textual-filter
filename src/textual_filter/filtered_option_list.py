@@ -7,9 +7,19 @@ if TYPE_CHECKING:
 
 from rapidfuzz import fuzz
 from rapidfuzz.process import extract
+from rich.console import RenderableType
 from textual.widgets import OptionList
 from textual.widgets._option_list import NewOptionListContent
 from textual.widgets.option_list import Option
+
+
+class OptionWithScore(Option):
+    def __init__(self, prompt: RenderableType, score: float, **kwargs) -> None:
+        super().__init__(prompt, **kwargs)
+        self._score = score
+
+    def __rich__(self) -> RenderableType:
+        return f"{super().__rich__()} [red italic]{self._score:.1f}[/]"
 
 
 class FilteredOptionList(OptionList):
@@ -46,13 +56,11 @@ class FilteredOptionList(OptionList):
             )
             if show_score:
                 filtered_options = [
-                    f"{self._all_options[match[2]].prompt} [red italic]({match[1]:.1f})[/]"
+                    OptionWithScore(self._all_options[match[2]].prompt, match[1])
                     for match in matches
                 ]
             else:
-                filtered_options = [
-                    self._all_options[match[2]].prompt for match in matches
-                ]
+                filtered_options = [self._all_options[match[2]] for match in matches]
 
             self.clear_options()
             if filtered_options:
