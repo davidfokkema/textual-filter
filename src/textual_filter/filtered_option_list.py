@@ -43,6 +43,7 @@ class FilteredOptionList(OptionList):
         score_cutoff=60.0,
         show_score=False,
         scorer: Callable | None = None,
+        processor: Callable | None = None,
     ) -> None:
         if query:
             prompts = [option.prompt for option in self._all_options]
@@ -52,7 +53,7 @@ class FilteredOptionList(OptionList):
                 limit=limit,
                 score_cutoff=score_cutoff,
                 scorer=scorer or fuzz.token_set_ratio,
-                processor=lambda x: x.upper().replace("-", " ").replace("_", " "),
+                processor=processor or str.upper,
             )
             if show_score:
                 filtered_options = [
