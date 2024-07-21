@@ -22,7 +22,7 @@ class DemoApp(App[None]):
 
     @on(Input.Changed)
     def filter_options(self, event: Input.Changed) -> None:
-        self.query_one(FilteredOptionList).filter(event.value)
+        self.query_one(FilteredOptionList).filter(event.value, show_score=True)
 
 
 app = DemoApp
